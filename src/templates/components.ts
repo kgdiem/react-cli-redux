@@ -17,8 +17,8 @@ export const COMPONENT_CLASS = (componentName: string): string => (
 
 ${PROP_TYPES(componentName)}
 
-${EXPORT_DEFAULT(componentName)}
-`)
+${EXPORT_DEFAULT(componentName)}`
+)
 
 export const FUNCTIONAL_COMPONENT = (componentName: string): string => (
 `const ${componentName} = (props) => (

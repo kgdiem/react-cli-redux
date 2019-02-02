@@ -1,12 +1,17 @@
-import { Files, Parser } from './lib'
-
-import * as ComponentTemplates from './templates/components'
+import { Files, Parser, Transformer } from './lib'
 
 (async (argv) => {
     try {
         const args = Parser.getArgs(argv)
 
         const [component, pathName, pathParts] = Parser.getPathParts(args.shift())
+
+        const componentClass = Transformer.createComponent(component)
+
+        const path = Files.getPath(pathParts, component, 'js')
+
+        await Files.writeFile(path, componentClass)
+        
     } catch(e) {
         console.warn(e)
 
