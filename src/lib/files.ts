@@ -27,14 +27,14 @@ export function getPath(parts: string[], filename: string, extension: string): s
     return path.join(pathName, file)
 }
 
-export function writeFile(path: string, dirParts: string[], content: string): Promise<boolean> {
+export function write(path: string, dirParts: string[], content: string): Promise<boolean> {
     try {
         return new Promise((resolve, reject) => {
             fs.writeFile(path, content, async err => {
                 if(err) {
                     await handleWriteFileError(err, dirParts)
 
-                    return writeFile(path, dirParts, content)
+                    return write(path, dirParts, content)
                 } else {
                     resolve(true)
                 }

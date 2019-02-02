@@ -32,6 +32,6 @@ async function _run(componentPath: string[], componentName: string, componentCla
     const path = Files.getPath(componentPath, componentName, 'js')
     const testPath = Files.getPath(testPathParts, componentName, 'js')
 
-    await Files.writeFile(path, componentPath, componentClass)
-    await Files.writeFile(testPath, testPathParts, componentTest)
+    await Files.write(path, componentPath, componentClass)
+    await Files.write(testPath, testPathParts, componentTest)
 }
