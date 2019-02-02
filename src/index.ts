@@ -6,7 +6,7 @@ import { Files, Parser, Transformer } from './lib'
 
         const [component, pathName, pathParts] = Parser.getPathParts(args.shift())
 
-        const componentClass = Transformer.createComponent(component)
+        const componentClass = Transformer.createFunctionalComponent(component)
 
         const path = Files.getPath(pathParts, component, 'js')
 

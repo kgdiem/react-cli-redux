@@ -10,3 +10,14 @@ ${templates.COMPONENTS.COMPONENT_CLASS(componentName)}
 `
     )
 }
+
+export function createFunctionalComponent(componentName: string): string {
+    return (
+`
+${templates.IMPORTS.REACT}
+${templates.IMPORTS.PROP_TYPES}
+
+${templates.COMPONENTS.FUNCTIONAL_COMPONENT(componentName)}
+`
+    )
+}
