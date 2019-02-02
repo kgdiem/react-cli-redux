@@ -11,22 +11,22 @@ import { Files, Parser, Transformer } from './lib'
         
         const cwd = process.cwd()
 
-        const cwdDir = [cwd, ...pathParts]
-        const srcDir = [cwd, 'src', ...pathParts]
-        const srcComponentsDir = [cwd, 'src', 'components', ...pathParts]
+        const cwdDir = [cwd]
+        const srcDir = [cwd, 'src']
+        const srcComponentsDir = [cwd, 'src', 'components']
 
         let dirToUse: string[]
         
         //Check for component folder first 
         if(await Files.dirExists(srcComponentsDir)) {
-            dirToUse = srcDir
-        } else if(await Files.dirExists(srcDir)) {
             dirToUse = srcComponentsDir
+        } else if(await Files.dirExists(srcDir)) {
+            dirToUse = srcDir
         } else {
             dirToUse = cwdDir
         }
 
-        createComponent(dirToUse, componentName, componentClass, componentTest)
+        createComponent([...dirToUse, ...pathParts], componentName, componentClass, componentTest)
     } catch(e) {
         console.warn(e)
 
@@ -35,9 +35,11 @@ import { Files, Parser, Transformer } from './lib'
 })(process.argv)
 
 async function createComponent(componentPath: string[], componentName: string, componentClass: string, componentTest: string) {
-    const path = Files.getPath(componentPath, componentName, 'js')
-    const testPath = Files.getPath([...componentPath, '__tests__'], componentName, 'js')
+    const testPathParts = [...componentPath, '__tests__']
 
-    await Files.writeFile(path, componentClass)
-    await Files.writeFile(testPath, componentTest)
+    const path = Files.getPath(componentPath, componentName, 'js')
+    const testPath = Files.getPath(testPathParts, componentName, 'js')
+
+    await Files.writeFile(path, componentPath, componentClass)
+    await Files.writeFile(testPath, testPathParts, componentTest)
 }
