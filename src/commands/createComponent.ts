@@ -1,6 +1,6 @@
 import { Files, Parser, Transformer } from '../lib'
 
-export async function run(args: string[]): Promise<void> {
+export async function run(args: string[]): Promise<string> {
     const [componentName, pathName, pathParts] = Parser.getPathParts(args.shift())
 
     const componentClass = Transformer.createFunctionalComponent(componentName)
@@ -23,15 +23,20 @@ export async function run(args: string[]): Promise<void> {
         dirToUse = cwdDir
     }
 
-    await _run([...dirToUse, ...pathParts], componentName, componentClass, componentTest)
+    const message = await _run([...dirToUse, ...pathParts], componentName, componentClass, componentTest)
+
+    return message
 }
 
-async function _run(componentPath: string[], componentName: string, componentClass: string, componentTest: string) {
+async function _run(componentPath: string[], componentName: string, componentClass: string, componentTest: string): Promise<string> {
     const testPathParts = [...componentPath, '__tests__']
 
     const path = Files.getPath(componentPath, componentName, 'js')
     const testPath = Files.getPath(testPathParts, componentName, 'js')
 
     await Files.write(path, componentPath, componentClass)
+
     await Files.write(testPath, testPathParts, componentTest)
+
+    return `Created ${componentName} component`
 }

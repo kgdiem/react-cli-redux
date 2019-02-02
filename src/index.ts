@@ -7,13 +7,18 @@ import { createComponent } from './commands'
 
         const command = args.shift()
 
-        let commandRunner: (args: string[]) => Promise<void> = () => Promise.resolve()
+        let commandRunner: (args: string[]) => Promise<string> = () => Promise.resolve('Unsupported command')
 
         if(command === 'create:component') {
             commandRunner = createComponent.run
         }
 
-        await commandRunner([...args])
+        commandRunner([...args])
+            .then(message => {
+                console.info(message)
+
+                process.exit(0)
+            })
     } catch(e) {
         console.warn(e)
 

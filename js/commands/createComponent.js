@@ -38,7 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 function run(args) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, componentName, pathName, pathParts, componentClass, componentTest, cwd, cwdDir, srcDir, srcComponentsDir, dirToUse;
+        var _a, componentName, pathName, pathParts, componentClass, componentTest, cwd, cwdDir, srcDir, srcComponentsDir, dirToUse, message;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -65,8 +65,8 @@ function run(args) {
                     _b.label = 4;
                 case 4: return [4 /*yield*/, _run(dirToUse.concat(pathParts), componentName, componentClass, componentTest)];
                 case 5:
-                    _b.sent();
-                    return [2 /*return*/];
+                    message = _b.sent();
+                    return [2 /*return*/, message];
             }
         });
     });
@@ -81,13 +81,13 @@ function _run(componentPath, componentName, componentClass, componentTest) {
                     testPathParts = componentPath.concat(['__tests__']);
                     path = lib_1.Files.getPath(componentPath, componentName, 'js');
                     testPath = lib_1.Files.getPath(testPathParts, componentName, 'js');
-                    return [4 /*yield*/, lib_1.Files.writeFile(path, componentPath, componentClass)];
+                    return [4 /*yield*/, lib_1.Files.write(path, componentPath, componentClass)];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, lib_1.Files.writeFile(testPath, testPathParts, componentTest)];
+                    return [4 /*yield*/, lib_1.Files.write(testPath, testPathParts, componentTest)];
                 case 2:
                     _a.sent();
-                    return [2 /*return*/];
+                    return [2 /*return*/, "Created " + componentName + " component"];
             }
         });
     });
