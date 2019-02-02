@@ -1,13 +1,13 @@
 export const DESCRIBE = (componentName: string, assertion: string): string => (
 `describe('${componentName}', () => {
-    ${assertion}
+${assertion}
 })`
 )
 
 export const IT = (testDescription: string, testBody: string): string => (
-`it(${testDescription}, () => {
+`  it('${testDescription}', () => {
     ${testBody}
-})`
+  })`
 )
 
 export const SHALLOW_RENDER = (componentName: string): string => (

@@ -4,13 +4,18 @@ import { Files, Parser, Transformer } from './lib'
     try {
         const args = Parser.getArgs(argv)
 
-        const [component, pathName, pathParts] = Parser.getPathParts(args.shift())
+        const [componentName, pathName, pathParts] = Parser.getPathParts(args.shift())
 
-        const componentClass = Transformer.createFunctionalComponent(component)
+        const componentClass = Transformer.createFunctionalComponent(componentName)
+        const componentTest = Transformer.createRenderTest(componentName)
+        
+        const path = Files.getPath(pathParts, componentName, 'js')
+        const testPath = Files.getPath([...pathParts, '__tests__'], componentName, 'js')
 
-        const path = Files.getPath(pathParts, component, 'js')
-
+        /*
         await Files.writeFile(path, componentClass)
+        await Files.writeFile(testPath, componentTest)
+        */
         
     } catch(e) {
         console.warn(e)
