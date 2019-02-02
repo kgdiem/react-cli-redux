@@ -1,3 +1,7 @@
 import * as Parser from './parser'
+import * as Files from './files'
 
-export { Parser }
+export { 
+    Files,
+    Parser 
+}

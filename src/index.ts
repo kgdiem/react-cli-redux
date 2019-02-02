@@ -1,6 +1,8 @@
-import { Parser } from './lib'
+import { Files, Parser } from './lib'
 
-((argv) => {
+import * as ComponentTemplates from './templates/components'
+
+(async (argv) => {
     try {
         const args = Parser.getArgs(argv)
 
