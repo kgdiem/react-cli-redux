@@ -21,3 +21,11 @@ ${templates.COMPONENTS.FUNCTIONAL_COMPONENT(componentName)}
 `
     )
 }
+
+export const createRenderTest = (componentName: string) => (
+`
+${templates.IMPORTS.TESTS.SHALLOW}
+
+${templates.TESTS.RENDER_TEST(componentName)}
+`
+)
