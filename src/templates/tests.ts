@@ -1,18 +1,16 @@
 export const DESCRIBE = (componentName: string, assertion: string): string => (
-`describe('${componentName}', () => {
-${assertion}
-})`
+`describe('${componentName}', () => {${assertion}})`
 )
 
 export const IT = (testDescription: string, testBody: string): string => (
-`  it('${testDescription}', () => {
+`
+  it('${testDescription}', () => {
     ${testBody}
-  })`
+  })
+`
 )
 
-export const SHALLOW_RENDER = (componentName: string): string => (
-    `shallow(<${componentName}/>)`
-)
+export const SHALLOW_RENDER = (componentName: string): string => `shallow(<${componentName}/>)`
 
 export const TEST = (componentName: string, testDescription: string, testBody: string): string => (
     DESCRIBE(componentName,
