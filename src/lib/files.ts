@@ -27,24 +27,28 @@ export function getPath(parts: string[], filename: string, extension: string): s
     return path.join(pathName, file)
 }
 
-export async function write(path: string, dirParts: string[], content: string): Promise<boolean> {
+export async function safeWrite(path: string, dirParts: string[], content: string): Promise<boolean> {
     try {
-        return await (new Promise((resolve, reject) => {
-            fs.writeFile(path, content, async err => {
-                if(err) {
-                    await handleWriteFileError(err, dirParts)
-
-                    await write(path, dirParts, content)
-
-                    resolve(true)
-                } else {
-                    resolve(true)
-                }
-            })
-        }))
+        return await write(path, dirParts, content)
     } catch(e) {
         return Promise.reject(e)
     }
+}
+
+export function write(path: string, dirParts: string[], content: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(path, content, async err => {
+            if(err) {
+                await handleWriteFileError(err, dirParts)
+
+                await safeWrite(path, dirParts, content)
+
+                resolve(true)
+            } else {
+                resolve(true)
+            }
+        })
+    })
 }
 
 export function mkdir(path: string, pathParts: string[]): Promise<string> {
