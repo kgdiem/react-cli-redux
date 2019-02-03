@@ -22,7 +22,7 @@ describe('Parser', () => {
 
     describe('getArgs', () => {
         it('throws if no user-provided arguments', () => {
-            expect(() => Parser.getArgs([])).toThrowError(Parser.NO_PATH_PROVIDED_ERROR)
+            expect(() => Parser.getArgs([])).toThrowError(Parser.NO_COMMAND_PROVIDED_ERROR)
         })
 
         it('returns array omitting first two entries', () => {

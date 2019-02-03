@@ -1,11 +1,19 @@
 import { Files, Parser, Transformer } from '../lib'
 
-export async function run(args: string[]): Promise<string> {
+export default async function run(args: string[]): Promise<string> {
     const [componentName, pathName, pathParts] = Parser.getPathParts(args.shift())
 
     const componentClass = Transformer.createFunctionalComponent(componentName)
     const componentTest = Transformer.createRenderTest(componentName)
     
+    const dirToUse = await getDir()
+
+    const message = await _run([...dirToUse, ...pathParts], componentName, componentClass, componentTest)
+
+    return message
+}
+
+async function getDir(): Promise<string[]> {
     const cwd = process.cwd()
 
     const cwdDir = [cwd]
@@ -23,9 +31,7 @@ export async function run(args: string[]): Promise<string> {
         dirToUse = cwdDir
     }
 
-    const message = await _run([...dirToUse, ...pathParts], componentName, componentClass, componentTest)
-
-    return message
+    return dirToUse
 }
 
 async function _run(componentPath: string[], componentName: string, componentClass: string, componentTest: string): Promise<string> {

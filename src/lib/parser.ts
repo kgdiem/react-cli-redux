@@ -1,4 +1,5 @@
 export const NO_PATH_PROVIDED_ERROR = 'No path provided'
+export const NO_COMMAND_PROVIDED_ERROR = 'No command provided'
 
 export function getPathParts(path: string|undefined): [string, string, string[]] {
     if(path === undefined)
@@ -18,7 +19,7 @@ export function getArgs(args: string[]): string[] {
     const argLength = args.length
 
     if(argLength < 2) {
-        throw new Error(NO_PATH_PROVIDED_ERROR)
+        throw new Error(NO_COMMAND_PROVIDED_ERROR)
     }
 
     return args.slice(2, argLength)

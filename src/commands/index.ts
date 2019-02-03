@@ -1,4 +1,4 @@
-import * as createComponent from './createComponent'
+import createComponent from './createComponent'
 
 export {
     createComponent

@@ -1,27 +1,14 @@
-import { Parser } from './lib'
-import { createComponent } from './commands'
+import Router from './router'
 
-(async (argv) => {
-    try {
-        const args = Parser.getArgs(argv)
+try{
+    Router(process.argv)
+        .then(message => {
+            console.info(message)
 
-        const command = args.shift()
+            process.exit(0)
+        })
+} catch(e) {
+    console.warn(e)
 
-        let commandRunner: (args: string[]) => Promise<string> = () => Promise.resolve('Unsupported command')
-
-        if(command === 'create:component') {
-            commandRunner = createComponent.run
-        }
-
-        commandRunner([...args])
-            .then(message => {
-                console.info(message)
-
-                process.exit(0)
-            })
-    } catch(e) {
-        console.warn(e)
-
-        process.exit(1)
-    }
-})(process.argv)
+    process.exit(1)
+}
