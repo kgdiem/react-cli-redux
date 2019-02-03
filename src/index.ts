@@ -1,7 +1,7 @@
 import Router from './router'
 
 try{
-    Router(process.argv)
+    Router(process.argv, process.cwd())
         .then(message => {
             console.info(message)
 

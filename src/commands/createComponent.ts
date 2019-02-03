@@ -1,21 +1,24 @@
 import { Files, Parser, Transformer } from '../lib'
 
-export default async function run(args: string[]): Promise<string> {
+export default async function run(args: string[], cwd: string): Promise<string> {
     const [componentName, pathName, pathParts] = Parser.getPathParts(args.shift())
 
-    const componentClass = Transformer.createFunctionalComponent(componentName)
+    const typeRegex = /^\-f|^--functional/
+    const functional = args.find(arg => typeRegex.test(arg)) 
+
+    const componentClass = functional ? Transformer.createFunctionalComponent(componentName) : 
+        Transformer.createComponent(componentName)
+    
     const componentTest = Transformer.createRenderTest(componentName)
     
-    const dirToUse = await getDir()
+    const dirToUse = await getDir(cwd)
 
     const message = await _run([...dirToUse, ...pathParts], componentName, componentClass, componentTest)
 
     return message
 }
 
-async function getDir(): Promise<string[]> {
-    const cwd = process.cwd()
-
+async function getDir(cwd: string): Promise<string[]> {
     const cwdDir = [cwd]
     const srcDir = [cwd, 'src']
     const srcComponentsDir = [cwd, 'src', 'components']

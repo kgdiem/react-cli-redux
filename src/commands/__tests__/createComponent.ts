@@ -5,7 +5,7 @@ import createComponent from '../createComponent'
 describe('createComponent', () => {
     describe('run', () => {
         it('runs', () => {
-            createComponent(['/Test/Foo/Component'])
+            createComponent(['/Test/Foo/Component'], '')
         })
     })
 })
