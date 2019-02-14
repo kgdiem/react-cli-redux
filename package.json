@@ -8,7 +8,7 @@
   "main": "./bin/index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "./node_modules/.bin/webpack-cli"
   },
   "author": "",
   "license": "MIT",
@@ -18,6 +18,9 @@
     "jest": "<24.0.0",
     "memfs": "^2.15.0",
     "ts-jest": "^23.10.5",
-    "typescript": "^3.3.1"
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
   }
 }
