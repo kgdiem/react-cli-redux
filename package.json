@@ -2,7 +2,10 @@
   "name": "react-cli-redux",
   "version": "0.0.1",
   "description": "Redo of dead react-cli package",
-  "main": "index.js",
+  "bin": {
+    "react-cli": "./bin/index.js"
+  },
+  "main": "./bin/index.js",
   "scripts": {
     "test": "jest",
     "build": "tsc"
